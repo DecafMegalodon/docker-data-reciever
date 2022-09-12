@@ -9,3 +9,5 @@ services:
       target: base
     ports:
       - "${PORT}:80"
+    environment:
+      - ENV_VAR=Guten Morgen

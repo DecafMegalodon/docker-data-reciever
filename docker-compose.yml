@@ -10,4 +10,9 @@ services:
     ports:
       - "${PORT}:80"
     environment:
-      - ENV_VAR=Guten Morgen
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_SERVER=${SQLSERVER}
+      - SQL_DATABASE=${SQL_DATABASE}
+      # A comma separated list of fields in the POST sent to the server in store in the database
+      - POST_DATUM=${POST_DATUM}

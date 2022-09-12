@@ -1,5 +1,5 @@
 <?php
     phpinfo();
     echo "This is a test";
-    echo getenv('ENV_VAR');
+    echo getenv('SQL_USER');
 ?>

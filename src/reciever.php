@@ -10,7 +10,7 @@
       $stmt = $conn->prepare("INSERT INTO test (testval)
           VALUES (:data)");
       $stmt->bindParam(':data', $variablehere);
-      $variablehere = 123;
+      $variablehere = $_POST["storagevalue"];
       $stmt->execute();
     } catch (PDOException $e) {
       echo  "SQL error:" . $e->getMessage();

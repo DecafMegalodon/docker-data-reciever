@@ -8,6 +8,8 @@
     $user=getenv('SQL_USER');
     $password=getenv('SQL_PASSWORD');
     $database=getenv('SQL_DATABASE');
+    $table=getenv('SQL_TABLE');
+    $keys=explode(",", getenv('POST_KEYS'));
     try{
       $conn = new PDO("mysql:host=$server;dbname=$database", $user, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

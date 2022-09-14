@@ -1,7 +1,6 @@
 <?php
-    if ( isset($_POST["SUBMISSION_PSK"]) && $_POST["SUBMISSION_PSK"] == getenv("SUBMISSION_PSK")){
-      echo "Authentication accepted (debug)";
-    } else {
+    // Check if the request has a valid credential
+    if ( !isset($_POST["SUBMISSION_PSK"]) || $_POST["SUBMISSION_PSK"] != getenv("SUBMISSION_PSK")){
       http_response_code(401);
       die();
     }
@@ -18,7 +17,9 @@
       $variablehere = $_POST["storagevalue"];
       $stmt->execute();
     } catch (PDOException $e) {
-      echo  "SQL error:" . $e->getMessage();
+        http_response_code(500);
+        //echo  "SQL error:" . $e->getMessage();
+        die();
     }
     //phpinfo();
 ?>

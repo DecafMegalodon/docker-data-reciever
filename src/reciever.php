@@ -1,9 +1,14 @@
 <?php
+    if ( isset($_POST["SUBMISSION_PSK"]) && $_POST["SUBMISSION_PSK"] == getenv("SUBMISSION_PSK")){
+      echo "Authentication accepted (debug)";
+    } else {
+      http_response_code(401);
+      die();
+    }
     $server=getenv('SQL_SERVER');
     $user=getenv('SQL_USER');
     $password=getenv('SQL_PASSWORD');
     $database=getenv('SQL_DATABASE');
-    echo $server . $user . $password . $database;
     try{
       $conn = new PDO("mysql:host=$server;dbname=$database", $user, $password);
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

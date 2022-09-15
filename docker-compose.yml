@@ -16,6 +16,6 @@ services:
       - SQL_DATABASE=${SQL_DATABASE}
       - SQL_TABLE=${SQL_TABLE}
       # A comma separated list of fields in the POST sent to the server to store in the database
-      - POST_KEYS=${POST_DATUM}
+      - POST_KEYS=${POST_KEYS}
       # The key to authenticate clients
       - SUBMISSION_PSK=${SUBMISSION_PSK}

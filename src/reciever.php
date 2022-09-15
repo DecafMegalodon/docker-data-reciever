@@ -10,18 +10,26 @@
     $database=getenv('SQL_DATABASE');
     $table=getenv('SQL_TABLE');
     $keys=explode(",", getenv('POST_KEYS'));
+
+    $conn = new PDO("mysql:host=$server;dbname=$database", $user, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $querytext = sprintf("INSERT INTO %s (%s) VALUES (%s)", $table, getenv('POST_KEYS'), 
+                         ":".join(", :", $keys));
+    $stmt = $conn->prepare($querytext);
+    //Help prevent the remainder of possible attacks by using true prepared stmts
+    //$stmt->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    foreach($keys as $key){
+        if(!isset($_POST[$key])){
+            http_response_code(400);
+            die();
+        }
+        $stmt->bindParam(":" . $key, $_POST[$key]);
+    }
     try{
-      $conn = new PDO("mysql:host=$server;dbname=$database", $user, $password);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $stmt = $conn->prepare("INSERT INTO test (testval)
-          VALUES (:data)");
-      $stmt->bindParam(':data', $variablehere);
-      $variablehere = $_POST["storagevalue"];
       $stmt->execute();
     } catch (PDOException $e) {
         http_response_code(500);
-        //echo  "SQL error:" . $e->getMessage();
+        echo  "SQL error:" . $e->getMessage();
         die();
     }
-    //phpinfo();
 ?>
